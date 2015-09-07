@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "yes"; "Invalid value."
+allowed: echo "no yes"
+help: If this variable is set to yes, then the packets are tunnelled over the TCP connection instead of a UDP connection.

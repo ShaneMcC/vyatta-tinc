@@ -1,0 +1,7 @@
+type: txt
+syntax:expression: $VAR(@) in "off", "internal", "kernel"; "Invalid value."
+allowed: echo "off internel kernel"
+help: How are indirect packets forwraded.
+help_val: off; Incoming packets not for the local node are dropped
+help_val: internal; Incoming packets are forwarded by tinc internally
+help_val: kernel; Incoming packets are always sent to the tun/tap device.

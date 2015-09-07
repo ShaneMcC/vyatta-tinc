@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "low", "normal", "high"; "Invalid value."
+allowed: echo "low normal high"
+help: When this option is used the priority of the tincd process will be adjusted.

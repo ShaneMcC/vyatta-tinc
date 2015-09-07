@@ -1,0 +1,2 @@
+type: txt
+help: Defines the name of the interface corresponding to the virtual network device.

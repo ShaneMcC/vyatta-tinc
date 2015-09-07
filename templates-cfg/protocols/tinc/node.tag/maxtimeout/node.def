@@ -1,0 +1,2 @@
+type: u32
+help: This is the maximum delay in seconds before trying to reconnect to other tinc daemons.

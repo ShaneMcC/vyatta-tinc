@@ -1,0 +1,2 @@
+type: u32
+help: This option controls the initial path MTU to this node.

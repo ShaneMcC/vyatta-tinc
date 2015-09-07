@@ -1,0 +1,3 @@
+multi:
+type: txt
+help: The subnet which this tinc daemon will serve. address[/prefixlength[#weight]]

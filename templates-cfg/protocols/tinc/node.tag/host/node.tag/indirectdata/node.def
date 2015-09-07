@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "yes"; "Invalid value."
+allowed: echo "no yes"
+help: When set to yes, only nodes which already have a meta connection to you will try to establish direct communication.

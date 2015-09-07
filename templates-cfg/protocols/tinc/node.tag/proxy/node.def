@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "socks4", "socks5", "http", "exec"; "Invalid value."
+allowed: echo "socks4 socks5 http exec"
+help: Use a proxy when making outgoing connections.

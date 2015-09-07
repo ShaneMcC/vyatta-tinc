@@ -1,0 +1,2 @@
+type: txt
+help: The private RSA key of this tinc daemon.  It will allow this tinc daemon to authenticate itself to other daemons.

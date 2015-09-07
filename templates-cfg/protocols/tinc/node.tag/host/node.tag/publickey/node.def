@@ -1,0 +1,2 @@
+type: txt
+help: The public RSA key of this tinc daemon.

@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "yes"; "Invalid value."
+allowed: echo "no yes"
+help: When this option is enabled the value of the TOS field of tunneled IPv4 packets will be inherited by the UDP packets that are sent out.

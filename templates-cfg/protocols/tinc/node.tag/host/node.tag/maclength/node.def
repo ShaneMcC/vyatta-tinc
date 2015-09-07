@@ -1,0 +1,2 @@
+type: u32
+help: The length of the message authentication code used to authenticate UDP packets.

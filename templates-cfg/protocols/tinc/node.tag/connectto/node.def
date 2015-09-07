@@ -1,0 +1,3 @@
+multi:
+type: txt
+help: Host to connect to

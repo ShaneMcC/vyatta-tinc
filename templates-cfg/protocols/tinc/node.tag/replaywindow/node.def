@@ -1,0 +1,2 @@
+type: u32
+help: This is the size of the replay tracking window for each remote node, in bytes.

@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "yes"; "Invalid value."
+allowed: echo "no yes"
+help: Should tinc decrement the TTL/HopLimit fields in packets?

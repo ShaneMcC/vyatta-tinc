@@ -1,0 +1,2 @@
+type: txt
+help: The digest algorithm used to authenticate UDP packets.  Any digest supported by OpenSSL is recognised.

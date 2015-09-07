@@ -1,0 +1,2 @@
+type: u32
+help: This option controls the amount of seconds MAC addresses are kept before they are removed.

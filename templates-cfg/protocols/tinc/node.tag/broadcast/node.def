@@ -1,0 +1,7 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "direct", "mst"; "Invalid value."
+allowed: echo "no direct mst"
+help: Mode for sending broadcast packets to other deamons
+help_val: no; Broadcast packets are never sent to other nodes.
+help_val: mst; Broadcast packets are sent and forwarded via the VPNs Minimum Spanning Tree.
+help_val: direct; Broadcast packets are sent directly to all nodes that can be reached directly.

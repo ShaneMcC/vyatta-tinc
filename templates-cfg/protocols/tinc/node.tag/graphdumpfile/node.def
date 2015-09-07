@@ -1,0 +1,2 @@
+type: txt
+help: If this option is present, tinc will dump the current network graph to the file filename every minute.

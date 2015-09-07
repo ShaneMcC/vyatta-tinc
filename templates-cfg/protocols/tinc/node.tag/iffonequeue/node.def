@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "yes"; "Invalid value."
+allowed: echo "no yes"
+help: Set IFF_ONE_QUEUE flag on TUN/TAP devices.

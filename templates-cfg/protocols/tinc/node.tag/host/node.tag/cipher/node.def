@@ -1,0 +1,2 @@
+type: txt
+help: The symmetric cipher algorithm used to encrypt UDP packets.  Any cipher supported by OpenSSL is recognised.

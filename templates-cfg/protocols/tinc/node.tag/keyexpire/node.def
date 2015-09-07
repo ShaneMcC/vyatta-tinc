@@ -1,0 +1,2 @@
+type: u32
+help: Seconds that the encryption keys used to encrypt the data are valid.

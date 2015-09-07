@@ -1,0 +1,2 @@
+type: txt
+help: This is the name which identifies this tinc daemon.  It must be unique for the virtual private network this daemon will connect to.

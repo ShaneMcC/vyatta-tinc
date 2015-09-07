@@ -1,0 +1,2 @@
+type: u32
+help: Sets the socket receive buffer size for the UDP socket, in bytes.

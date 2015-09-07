@@ -1,0 +1,4 @@
+type: txt
+syntax:expression: $VAR(@) in "no", "yes"; "Invalid value."
+allowed: echo "no yes"
+help: This option specifies whether tinc should clamp the maximum segment size (MSS) of TCP packets to the path MTU.

@@ -1,0 +1,2 @@
+type: u32
+help: The number of seconds to wait for a response to pings or to allow meta connections to block.
