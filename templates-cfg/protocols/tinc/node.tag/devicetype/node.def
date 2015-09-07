@@ -2,8 +2,8 @@ type: txt
 syntax:expression: $VAR(@) in "dummy", "raw_socket", "multicast", "tun", "tap"; "Invalid value."
 allowed: echo "dummy raw_socket multicast tun tap"
 help: The type of the virtual network device.
-help_val: dummy; Use a dummy interface.
-help_val: raw_socket; Open a raw socket, and bind it to a pre-existing Interface 
-help_val: multicast; Open a multicast UDP socket and bind it to an address and port
-help_val: tun; Set type to tun. 
-help_val: tap; Set type to tap.
+val_help: dummy; Use a dummy interface.
+val_help: raw_socket; Open a raw socket, and bind it to a pre-existing Interface 
+val_help: multicast; Open a multicast UDP socket and bind it to an address and port
+val_help: tun; Set type to tun. 
+val_help: tap; Set type to tap.

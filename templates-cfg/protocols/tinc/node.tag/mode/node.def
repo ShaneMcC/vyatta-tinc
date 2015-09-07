@@ -2,6 +2,6 @@ type: txt
 syntax:expression: $VAR(@) in "router", "switch", "hub"; "Invalid value."
 allowed: echo "router switch hub"
 help: This option selects the way packets are routed to other daemons.
-help_val: router; In this mode Subnet variables in the host configuration files will be used to form a routing table.
-help_val: switch; In this mode the MAC addresses of the packets on the VPN will be used to dynamically create a routing table.
-help_val: hub; Same as the switch mode, but instead every packet will be broadcast to the other daemons.
+val_help: router; In this mode Subnet variables in the host configuration files will be used to form a routing table.
+val_help: switch; In this mode the MAC addresses of the packets on the VPN will be used to dynamically create a routing table.
+val_help: hub; Same as the switch mode, but instead every packet will be broadcast to the other daemons.
