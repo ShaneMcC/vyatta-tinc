@@ -1,3 +1,6 @@
 tag:
 type: txt
 help: tinc network parameters
+end:
+    sudo /opt/vyatta/sbin/build-tinc-config.sh || exit 1
+

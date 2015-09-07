@@ -1,0 +1,2 @@
+type: txt
+help: The file to use for the tinc-down script.

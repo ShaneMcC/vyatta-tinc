@@ -1,0 +1,3 @@
+multi:
+type: txt
+help: IP/Subnet to add to the tinc interface after it comes up. (No effect if tinc-up is specified)

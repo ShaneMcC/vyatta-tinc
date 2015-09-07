@@ -17,3 +17,4 @@ cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 install-exec-hook:
 	mkdir -p $(DESTDIR)$(cfgdir)
 	cd templates-cfg; $(cpiop) $(DESTDIR)$(cfgdir)
+	cd scripts; $(cpiop) $(DESTDIR)$(vsbindir)
