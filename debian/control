@@ -1,0 +1,16 @@
+Source: vyatta-tinc
+Section: contrib/net
+Priority: extra
+Maintainer: Shane Mc Cormack <dataforce@dataforce.org.uk>
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 5), autotools-dev, autoconf
+
+Package: vyatta-tinc
+Architecture: all
+Depends: vyatta-cfg-system,
+ vyatta-cfg,
+ vyatta-op,
+ ${misc:Depends}
+Replaces: vyatta-tinc
+Description: Vyatta tinc configuration
+ Vyatta tinc configuration
