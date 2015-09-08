@@ -23,7 +23,7 @@ This will produce a number of files in the ../ directory, the one you care about
 
 ## Installation
 
-The fully-built package depends on `tinc` which needs to be installed manually before hand, so this will require that the debian repositories have been added to your device.
+The fully-built package will only provide the ability to set the configuration, there is still a soft-depends on `tinc` which needs to be installed manually for the configuration to actually do anything, so this will require that the debian repositories have been added to your device.
 
 After `tinc` is installed, you can then install `vyatta-tinc` using `dpkg -i vyatta-tinc_1.0.0_all.deb`
 
