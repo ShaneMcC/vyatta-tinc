@@ -1,6 +1,6 @@
-vyatta-tinc (1.0.0) unstable; urgency=low
+vyatta-tinc (0.1) unstable; urgency=low
 
-  * Initial release.
+  * First release.
 
- -- Shane Mc Cormack <dataforce@dataforce.org.uk>  Mon, 07 Sep 2015 18:30:00 +0100
+ -- Shane Mc Cormack <dataforce@dataforce.org.uk>  Mon, 08 Sep 2015 04:30:00 +0100
 
