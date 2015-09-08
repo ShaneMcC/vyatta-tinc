@@ -180,6 +180,13 @@ for net in "${NETS[@]}"; do
 			echo -n ""
 
 		########################################
+		# Firewall Related Settings
+		########################################
+		elif [ "${cfg}" = "firewall" ]; then
+			# Firewall stuff is handled separately by the firewall nodes themselves.
+			echo -n ""
+
+		########################################
 		# Custom Scripts
 		########################################
 		elif [ "${cfg}" = "tinc-up" -o "${cfg}" = "tinc-down" -o "${cfg}" = "host-up" -o "${cfg}" = "host-down" -o "${cfg}" = "subnet-up" -o "${cfg}" = "subnet-down" ]; then
