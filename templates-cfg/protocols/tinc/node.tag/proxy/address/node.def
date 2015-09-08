@@ -1,0 +1,2 @@
+type: txt
+help: Address to use for socks4/socks5/http proxy types.

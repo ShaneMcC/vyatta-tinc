@@ -176,7 +176,6 @@ for net in "${NETS[@]}"; do
 		# Proxy Related Settings
 		########################################
 		elif [ "${cfg}" = "proxy" ]; then
-			# TODO: Proxy stuff.
 			echo -n ""
 
 		########################################
