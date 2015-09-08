@@ -10,6 +10,7 @@ touch /etc/tinc/nets.boot
 SHELL_API=`which cli-shell-api`
 
 # Ensure we have a session.
+MYSESSION="false"
 $SHELL_API inSession
 if [ $? -ne 0 ]; then
   # Obtain session environment
@@ -25,6 +26,7 @@ if [ $? -ne 0 ]; then
     echo "Something went wrong setting up session."
     exit 1;
   fi
+  MYSESSION="true"
 
   function atexit() {
     $SHELL_API teardownSession
@@ -90,11 +92,36 @@ for net in "${NETS[@]}"; do
       # Do nothing. This is a vyatta-tinc config setting, not a tinc config setting.
       echo -n ""
     elif [ "${cfg}" = "privatekey" ]; then
-      PRIVATEKEY=$($SHELL_API returnValue protocols tinc $net $cfg)
+      PRIVATEKEY=$($SHELL_API returnValue protocols tinc $net privatekey)
       if [ "${PRIVATEKEY}" != "" ]; then
         echo '-----BEGIN RSA PRIVATE KEY-----' >> /etc/tinc/$net/rsa_key.priv
         echo "${PRIVATEKEY}" | sed -r 's/(.{65})/\1\n/g' >> /etc/tinc/$net/rsa_key.priv
         echo '-----END RSA PRIVATE KEY-----' >> /etc/tinc/$net/rsa_key.priv
+        chmod 600 /etc/tinc/$net/rsa_key.priv
+      fi;
+    elif [ "${cfg}" = "generatekeys" ]; then
+      GENERATE=$($SHELL_API returnValue protocols tinc $net generatekeys)
+      PRIVATEKEY=$($SHELL_API returnValue protocols tinc $net privatekey)
+      if [ "${GENERATE}" = "true" -a "${PRIVATEKEY}" = "" -a -e "/usr/sbin/tincd" ]; then
+        MYNAME=$($SHELL_API returnValue protocols tinc $net name)
+        if [ "${MYNAME}" != "" ]; then
+          TEMPDIR=`mktemp -d`
+          echo "" | /usr/sbin/tincd -K -c "${TEMPDIR}" 2>/dev/null
+          MYPUBLICKEY=$(cat "${TEMPDIR}/rsa_key.pub" | egrep -v "^(.*(BEGIN|END) RSA.*|)$" | tr -d '\n')
+          MYPRIVATEKEY=$(cat "${TEMPDIR}/rsa_key.priv" | egrep -v "^(.*(BEGIN|END) RSA.*|)$" | tr -d '\n')
+          /opt/vyatta/sbin/my_set protocols tinc $net privatekey "${MYPRIVATEKEY}"
+          /opt/vyatta/sbin/my_set protocols tinc $net host ${MYNAME} publickey "${MYPUBLICKEY}"
+          if [ "${MYSESSION}" = "true" ]; then
+            /opt/vyatta/sbin/my_commit 2>&1
+            exit $?
+          fi;
+          
+          cp "${TEMPDIR}/rsa_key.priv" /etc/tinc/${net}/rsa_key.priv
+          if [ -e "/etc/tinc/${net}/hosts/${MYNAME}" ]; then
+            cat "${TEMPDIR}/rsa_key.pub" >> "/etc/tinc/${net}/hosts/${MYNAME}"
+          fi;
+          rm -Rf "${TEMPDIR}"
+        fi;
       fi;
     else
       FOUND=0
@@ -140,11 +167,20 @@ for net in "${NETS[@]}"; do
   fi;
 done;
 
-# Make sure tinc is running for all networks
-/etc/init.d/tinc start >/dev/null 2>&1
+# Make sure syslog will log what we need for the show commands.
+if [ ! -e "/etc/rsyslog.d/vyatta-tinc.conf" -a -e "/etc/rsyslog.d/" ]; then
+  echo ':syslogtag, startswith, "tinc."   -/var/log/messages' > /etc/rsyslog.d/vyatta-tinc.conf
+  /etc/init.d/rsyslog restart
+fi;
 
-# Reload all networks.
-/etc/init.d/tinc reload >/dev/null 2>&1
+# If tinc is installed, then poke it a bit.
+if [ -e /etc/init.d/tinc ]; then
+  # Make sure tinc is running for all networks
+  /etc/init.d/tinc start >/dev/null 2>&1
+
+  # Reload all networks.
+  /etc/init.d/tinc reload >/dev/null 2>&1
+fi;
 
 # Kill networks that no longer exist.
 for TINCPID in `ls /var/run/tinc.*.pid 2>/dev/null`; do

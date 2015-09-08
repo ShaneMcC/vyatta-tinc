@@ -1,0 +1,3 @@
+help: show tinc connections for a given network.
+allowed: /opt/vyatta/sbin/tinc-commands.sh networklist
+run: /opt/vyatta/sbin/tinc-commands.sh connections $4

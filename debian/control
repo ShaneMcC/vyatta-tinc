@@ -10,7 +10,6 @@ Architecture: all
 Depends: vyatta-cfg-system,
  vyatta-cfg,
  vyatta-op,
- tinc,
  ${misc:Depends}
 Replaces: vyatta-tinc
 Description: Vyatta tinc configuration

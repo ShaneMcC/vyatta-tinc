@@ -1,0 +1,2 @@
+help: show tinc status.
+run: /opt/vyatta/sbin/tinc-commands.sh status

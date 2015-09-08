@@ -1,0 +1,2 @@
+type: bool
+help: Generate public/private keys for this tinc instance if they do not already exist.
