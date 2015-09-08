@@ -1,5 +1,8 @@
 #!/bin/sh
 
+########################################
+# Make sure we have a config session.
+########################################
 SHELL_API=`which cli-shell-api`
 
 # Ensure we have a session.
@@ -19,25 +22,42 @@ if [ $? -ne 0 ]; then
 		exit 1;
 	fi
 
+	# Make sure we teardown the session when we exit if we created it.
 	function atexit() {
 		$SHELL_API teardownSession
 	}
 	trap atexit EXIT
 fi;
 
+########################################
+# Wrapper function for listNodes, this will put the result into the global
+# variable passed as the first param, all other params are passed to listNodes
+########################################
+getNodes() {
+	RESULT=$1
+	shift
+	list=$($SHELL_API listNodes ${@})
+	eval $RESULT="($list)"
+}
+
+########################################
+# List Networks
+########################################
 if [ "${1}" = "networklist" ]; then
-	net_list=$($SHELL_API listNodes protocols tinc)
-	eval "NETS=($net_list)"
+	getNodes NETS protocols tinc
 	for net in "${NETS[@]}"; do
 		echo $net
 	done;
+
+########################################
+# Get status of all tinc daemons.
+########################################
 elif [ "${1}" = "status" ]; then
 	if [ ! -e "/etc/init.d/tinc" ]; then
 		echo "WARNING: tinc is not installed."
 	fi;
 
-	net_list=$($SHELL_API listNodes protocols tinc)
-	eval "NETS=($net_list)"
+	getNodes NETS protocols tinc
 	for net in "${NETS[@]}"; do
 		NET_ENABLED=$($SHELL_API returnValue protocols tinc $net enabled)
 
@@ -52,6 +72,10 @@ elif [ "${1}" = "status" ]; then
 			echo "$net: Disabled"
 		fi;
 	done;
+
+########################################
+# Show connections/statistics from tinc daemon
+########################################
 elif [ "${1}" = "connections" -o "${1}" = "statistics" ]; then
 	net="${2}"
 	if [ "${1}" = "connections" ]; then
@@ -61,6 +85,7 @@ elif [ "${1}" = "connections" -o "${1}" = "statistics" ]; then
 	fi;
 
 	# Make sure syslog will log what we need for the show commands.
+	# Tinc sends these as debug lines, which rsyslog ignores by default.
 	if [ ! -e "/etc/rsyslog.d/vyatta-tinc.conf" -a -e "/etc/rsyslog.d/" ]; then
 		echo ':syslogtag, startswith, "tinc."   -/var/log/messages' > /etc/rsyslog.d/vyatta-tinc.conf
 		/etc/init.d/rsyslog restart >/dev/null 2>&1
@@ -78,6 +103,10 @@ elif [ "${1}" = "connections" -o "${1}" = "statistics" ]; then
 	else
 		echo "No tinc instance specified."
 	fi;
+
+########################################
+# Show log entries
+########################################
 elif [ "${1}" = "logging" ]; then
 	net="${2}"
 	if [ "${net}" != "" ]; then
@@ -95,6 +124,10 @@ elif [ "${1}" = "logging" ]; then
 	else
 		echo "No tinc instance specified."
 	fi;
+
+########################################
+# Unknown Commmand.
+########################################
 else
 	echo "Unknown command."
 fi;
