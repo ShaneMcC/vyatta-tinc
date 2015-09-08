@@ -1,0 +1,4 @@
+type: txt
+help: Which type of proxy to actually use?
+syntax:expression: $VAR(@) in "socks4", "socks5", "http", "exec"; "Invalid value."
+allowed: echo "socks4 socks5 http exec"
