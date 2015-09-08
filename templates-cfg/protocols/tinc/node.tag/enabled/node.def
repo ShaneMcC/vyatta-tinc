@@ -1,0 +1,2 @@
+type: bool
+help: enable this tinc network or not
