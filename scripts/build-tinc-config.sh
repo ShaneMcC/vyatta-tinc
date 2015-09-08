@@ -167,12 +167,6 @@ for net in "${NETS[@]}"; do
   fi;
 done;
 
-# Make sure syslog will log what we need for the show commands.
-if [ ! -e "/etc/rsyslog.d/vyatta-tinc.conf" -a -e "/etc/rsyslog.d/" ]; then
-  echo ':syslogtag, startswith, "tinc."   -/var/log/messages' > /etc/rsyslog.d/vyatta-tinc.conf
-  /etc/init.d/rsyslog restart
-fi;
-
 # If tinc is installed, then poke it a bit.
 if [ -e /etc/init.d/tinc ]; then
   # Make sure tinc is running for all networks

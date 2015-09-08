@@ -59,12 +59,18 @@ elif [ "${1}" = "connections" -o "${1}" = "statistics" ]; then
   elif [ "${1}" = "statistics" ]; then
     SIGNAL="USR2"
   fi;
-  
+
+  # Make sure syslog will log what we need for the show commands.
+  if [ ! -e "/etc/rsyslog.d/vyatta-tinc.conf" -a -e "/etc/rsyslog.d/" ]; then
+    echo ':syslogtag, startswith, "tinc."   -/var/log/messages' > /etc/rsyslog.d/vyatta-tinc.conf
+    /etc/init.d/rsyslog restart >/dev/null 2>&1
+  fi;
+
   if [ "${net}" != "" ]; then
     if [ -e "/var/run/tinc.${net}.pid" ]; then
       echo "Attempting to get ${1} information from tinc: "
       kill -${SIGNAL} $(cat "/var/run/tinc.${net}.pid") 2>&1
-      
+
       cat /var/log/messages | grep "tinc.${net}\[$(cat "/var/run/tinc.${net}.pid")\]" | grep `date +%H:%M:%S` | cut -f 4- -d:
     else
       echo "Unknown tinc instance, or tinc instance not currently running: ${net}"
@@ -75,11 +81,16 @@ elif [ "${1}" = "connections" -o "${1}" = "statistics" ]; then
 elif [ "${1}" = "logging" ]; then
   net="${2}"
   if [ "${net}" != "" ]; then
-    if [ -e "/var/run/tinc.${net}.pid" ]; then
-      echo "Recent log entries:"
-      cat /var/log/messages | grep "tinc.${net}\[$(cat "/var/run/tinc.${net}.pid")\]" | tail -n 50
+    if [ "${3}" = "all" ]; then
+      echo "All log entries:"
+      cat /var/log/messages | grep "tinc.${net}" | tail -n 50
     else
-      echo "Unknown tinc instance, or tinc instance not currently running: ${net}"
+      if [ -e "/var/run/tinc.${net}.pid" ]; then
+        echo "Recent log entries:"
+        cat /var/log/messages | grep "tinc.${net}\[$(cat "/var/run/tinc.${net}.pid")\]" | tail -n 50
+      else
+        echo "Unknown tinc instance, or tinc instance not currently running: ${net}"
+      fi;
     fi;
   else
     echo "No tinc instance specified."
