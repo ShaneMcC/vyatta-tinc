@@ -116,6 +116,46 @@ formatKey() {
 	echo "-----END RSA ${TYPE} KEY-----"
 }
 
+########################################
+# Get proxy settings and echo them ready for a config.
+########################################
+getProxySettings() {
+	net=$1
+	if [ "$net" != "" ]; then
+		proxy_type=$($SHELL_API returnValue protocols tinc $net proxy type)
+		proxy_address=$($SHELL_API returnValue protocols tinc $net proxy address)
+		proxy_port=$($SHELL_API returnValue protocols tinc $net proxy port)
+		proxy_username=$($SHELL_API returnValue protocols tinc $net proxy username)
+		proxy_password=$($SHELL_API returnValue protocols tinc $net proxy password)
+		proxy_command=$($SHELL_API returnValue protocols tinc $net proxy command)
+
+		# Exec only takes command
+		if [ "${proxy_type}" = "exec" ]; then
+			if [ "${proxy_command}" != "" ]; then
+				echo "proxy exec ${proxy_command}"
+			fi;
+		elif [ "${proxy_type}" = "socks4" -o "${proxy_type}" = "socks5" -o "${proxy_type}" = "http" ]; then
+			# Socks4, socks5 and http all need an address and a port
+			if [ "${proxy_address}" != "" -a "${proxy_port}" != "" ]; then
+				echo -n "proxy ${proxy_type} ${proxy_address} ${proxy_port}"
+
+				# Socks4 can specify a username
+				if [ "${proxy_type}" = "socks4" -a "${proxy_username}" != "" ]; then
+					echo -n " ${proxy_username}"
+				fi;
+
+				# Socks5 can specify a username and password
+				if [ "${proxy_type}" = "socks5" -a "${proxy_username}" != "" -a "${proxy_password}" != "" ]; then
+					echo -n " ${proxy_username} ${proxy_password}"
+				fi;
+
+				# End the line.
+				echo ""
+			fi;
+		fi;
+	fi;
+}
+
 
 ########################################
 # Run through creating the config, this recursively reads the tinc config tree
@@ -176,7 +216,7 @@ for net in "${NETS[@]}"; do
 		# Proxy Related Settings
 		########################################
 		elif [ "${cfg}" = "proxy" ]; then
-			echo -n ""
+ 			getProxySettings $net >> ${NET_DIR}/tinc.conf
 
 		########################################
 		# Firewall Related Settings
