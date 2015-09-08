@@ -1,6 +1,8 @@
 # vyatta-tinc
 ## What is it?
-Templates and Scripts for vyatta/vyos/edgeos/edgemax to allow managing [tinc](www.tinc-vpn.org)-based VPN Tunnels.
+Templates and Scripts for vyatta/[vyos](http://vyos.net/)/[edgeos/edgemax](http://www.ubnt.com/) to allow managing [tinc](www.tinc-vpn.org)-based VPN Tunnels.
+
+This has only been tested on Ubiquiti EdgeRouter Lite, but should work on anything that is vyatta-based.
 
 ## How to build
 
