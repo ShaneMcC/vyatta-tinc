@@ -1,8 +1,16 @@
-vyatta-tinc (0.1.1~dev) unstable; urgency=low
+vyatta-tinc (0.2) unstable; urgency=low
 
-  * Dev for next version.
+  * Reordered show commads `show tinc NETWORK <logging|statistics|connections>`
+    seems more natural than `show tinc <logging|statistics|connections> NETWORK`
+  * Added "all" option to `show tinc <> logging` to allow showing all matching
+    logs for the given network and not just the current process.
+  * Added support for attaching firewall rules to networks
+  * Added support for proxy settings (The settings used for proxies have changed,
+    so any config that was created for the old non-working proxy settings won't
+    be valid.
+  * Added support for all tinc scripts
 
- -- Shane Mc Cormack <dataforce@dataforce.org.uk>  Mon, 08 Sep 2015 04:40:00 +0100
+ -- Shane Mc Cormack <dataforce@dataforce.org.uk>  Mon, 09 Sep 2015 03:25:00 +0100
 
 vyatta-tinc (0.1) unstable; urgency=low
 
