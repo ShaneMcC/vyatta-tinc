@@ -247,7 +247,7 @@ for net in "${NETS[@]}"; do
 		elif [ "${cfg}" = "privatekey" ]; then
 			PRIVATEKEY=$($SHELL_API returnValue protocols tinc $net privatekey)
 			if [ "${PRIVATEKEY}" != "" ]; then
-				formatKey "PRIVATE" "${HOSTPUBKEY}" >> ${NET_DIR}/rsa_key.priv
+				formatKey "PRIVATE" "${PRIVATEKEY}" >> ${NET_DIR}/rsa_key.priv
 				chmod 600 ${NET_DIR}/rsa_key.priv
 			fi;
 
