@@ -1,0 +1,2 @@
+help: show tinc statistics for a given network.
+run: /opt/vyatta/sbin/tinc-commands.sh statistics $3

@@ -1,0 +1,2 @@
+help: show tinc logs for the given network.
+run: /opt/vyatta/sbin/tinc-commands.sh logging $3

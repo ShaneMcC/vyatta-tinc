@@ -1,0 +1,2 @@
+help: show tinc information for a given network
+allowed: /opt/vyatta/sbin/tinc-commands.sh networklist
