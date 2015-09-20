@@ -4,6 +4,28 @@ Templates and Scripts for vyatta/[vyos](http://vyos.net/)/[edgeos/edgemax](http:
 
 This has only been tested on Ubiquiti EdgeRouter Lite, but should work on anything that is vyatta-based.
 
+## How to install
+
+Firstly, you will need to enable the regular debian repositories depending on if you use [vyos](http://vyos.net/wiki/FAQ#How_do_I_install_debian_packages.3F) or [edgeos/edgemax](https://help.ubnt.com/hc/en-us/articles/205202560-EdgeMAX-Add-other-Debian-packages-to-EdgeOS).
+
+Then enable the vyatta-tinc repository:
+
+```
+configure
+set system package repository vyatta-tinc components vyatta-tinc
+set system package repository vyatta-tinc distribution all
+set system package repository vyatta-tinc url http://packages.dataforce.org.uk/
+commit
+```
+And install with:
+```
+apt-get install tinc vyatta-tinc
+```
+
+You can also keep the packages up to date using `apt-get install tinc vyatta-tinc` - it is not reccomended to use `apt-get upgrade` when the normal debian repos are configured.
+
+If you do not want to use the apt repository, .deb files are avaiable on the [releases](https://github.com/ShaneMcC/vyatta-tinc/releases) page.
+
 ## How to build
 
 At the moment building is only tested on ubuntu, but it should work on debian.
