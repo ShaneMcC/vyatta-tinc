@@ -1,2 +1,3 @@
+multi:
 type: ipv4
 help: Address to connect to
