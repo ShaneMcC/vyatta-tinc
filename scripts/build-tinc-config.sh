@@ -112,7 +112,7 @@ formatKey() {
 
 	echo ""
 	echo "-----BEGIN RSA ${TYPE} KEY-----"
-	echo "${KEY}" | sed -r 's/(.{65})/\1\n/g'
+	echo "${KEY}" | sed -r 's/(.{64})/\1\n/g'
 	echo "-----END RSA ${TYPE} KEY-----"
 }
 
