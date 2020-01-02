@@ -1,4 +1,7 @@
 # vyatta-tinc
+
+Please note, this is no longer supported. I no longer use tinc on any of my vyos/edgemax routers. Mainly becuase performance was not great on edgemax, and updating the OS was annoying needing to re-install packages etc. These days I tend to use wireguard between vyos hosts, and IPSEC on edgemax (or run vyos beside it for tunneling).
+
 ## What is it?
 Templates and Scripts for vyatta/[vyos](http://vyos.net/)/[edgeos/edgemax](http://www.ubnt.com/) to allow managing [tinc](www.tinc-vpn.org)-based VPN Tunnels.
 
